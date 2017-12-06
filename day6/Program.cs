@@ -14,7 +14,9 @@ namespace day6
 		static void Main(string[] args)
 		{
 			Console.WriteLine(Run(s_example));
-			Console.WriteLine(Run(s_input1));
+
+			var input = ProblemInput.FetchBlocking(2017, 6);
+			Console.WriteLine(Run(input));
 
 			Console.ReadKey();
 		}
