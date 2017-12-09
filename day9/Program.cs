@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace day9
@@ -11,7 +12,7 @@ namespace day9
 		static int s_year = 2017;
 		static int s_day = 9;
 		static string s_example =
-@"";
+"<{o\"i!a,<{i<a><><random characters>";
 
 		static void Main(string[] args)
 		{
@@ -33,14 +34,43 @@ namespace day9
 		{
 			var input = Transform(raw);
 
-			return -1;
+			string noEscapes = Regex.Replace(input, "!.", "");
+			string noGarbage = Regex.Replace(noEscapes, "<.*?>", "", RegexOptions.None);
+			string noCommas = noGarbage.Replace(",", "");
+
+			int depth = 0;
+			int sum = 0;
+			foreach (var c in noCommas)
+			{
+				switch (c)
+				{
+					case '{':
+						depth++;
+						sum += depth;
+						break;
+					case '}':
+						depth--;
+						break;
+					default:
+						throw new Exception("Unexpected: " + c);
+				}
+			}
+
+			return sum;
 		}
 
 		static int Solve2(string raw)
 		{
 			var input = Transform(raw);
 
-			return -1;
+			string noEscapes = Regex.Replace(input, "!.", "");
+
+			var garbageMatch = Regex.Matches(noEscapes, "<(.*?)>");
+			var sum = garbageMatch
+				.Cast<Match>()
+				.Sum(m => m.Groups.Count == 2 ? m.Groups[1].Length : 0);
+
+			return sum;
 		}
 	}
 }
