@@ -35,7 +35,7 @@ namespace day9
 			var input = Transform(raw);
 
 			string noEscapes = Regex.Replace(input, "!.", "");
-			string noGarbage = Regex.Replace(noEscapes, "<.*?>", "", RegexOptions.None);
+			string noGarbage = Regex.Replace(noEscapes, "<.*?>", "");
 			string noCommas = noGarbage.Replace(",", "");
 
 			int depth = 0;
