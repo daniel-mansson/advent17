@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A7CDC2DD-2C6A-447E-A2A3-D4E9A641A7E1}</ProjectGuid>
+    <ProjectGuid>{485BCA99-38E3-4E3F-B159-739DF7E0D79A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>day13</RootNamespace>
     <AssemblyName>day13</AssemblyName>
