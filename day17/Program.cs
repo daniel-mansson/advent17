@@ -11,7 +11,7 @@ namespace day17
 		static int s_year = 2017;
 		static int s_day = 17;
 		static string s_example =
-@"";
+@"3";
 
 		static void Main(string[] args)
 		{
@@ -24,23 +24,48 @@ namespace day17
 			Console.ReadKey();
 		}
 
-		static string Transform(string raw)
+		static int Transform(string raw)
 		{
-			return raw;
+			return int.Parse(raw);
 		}
 
 		static int Solve(string raw)
 		{
 			var input = Transform(raw);
 
-			return -1;
+			var list = new List<int>();
+			int current = 0;
+			int nextValue = 1;
+
+			list.Add(0);
+			for (; nextValue <= 2017; nextValue++)
+			{
+				current = (current + input) % list.Count + 1;
+				list.Insert(current, nextValue);
+			}
+
+			return list[(current + 1) % list.Count];
 		}
 
 		static int Solve2(string raw)
 		{
 			var input = Transform(raw);
 
-			return -1;
+			int listValue = 0;
+			int listCount = 1;
+			int current = 0;
+			int nextValue = 1;
+
+			for (; nextValue <= 50000000; nextValue++)
+			{
+				current = (current + input) % listCount + 1;
+
+				++listCount;
+				if (current == 1)
+					listValue = nextValue;
+			}
+
+			return listValue;
 		}
 	}
 }
