@@ -11,16 +11,13 @@ namespace day18
 		static int s_year = 2017;
 		static int s_day = 18;
 		static string s_example =
-@"set a 1
-add a 2
-mul a a
-mod a 5
-snd a
-set a 0
+@"snd 1
+snd 2
+snd p
 rcv a
-jgz a -1
-set a 1
-jgz a -2";
+rcv b
+rcv c
+rcv d";
 
 		static void Main(string[] args)
 		{
@@ -38,8 +35,12 @@ jgz a -2";
 			public int PC = 0;
 			public Dictionary<string, long> registers = new Dictionary<string, long>();
 			public List<IInstruction> instructions = new List<IInstruction>();
-			public long playingSound = 0;
-			public event Action<long> ReceivedInterrupt;
+
+			public List<long> sendQueue = new List<long>();
+			public List<long> recvQueue;
+			public bool blocked = false;
+
+			public int sendCount = 0;
 
 			public long GetValue(string token)
 			{
@@ -60,11 +61,6 @@ jgz a -2";
 			public void Step()
 			{
 				instructions[PC].Execute(this);
-			}
-
-			public void OnReceivedRecoverInterrupt()
-			{
-				ReceivedInterrupt?.Invoke(playingSound);
 			}
 		}
 
@@ -172,7 +168,10 @@ jgz a -2";
 			public void Execute(ComputerMachine machine)
 			{
 				long rhs = machine.GetValue(value);
-				machine.playingSound = rhs;
+
+				machine.sendCount++;
+				machine.sendQueue.Add(rhs);
+
 				machine.PC++;
 			}
 
@@ -187,23 +186,29 @@ jgz a -2";
 
 		public class RcvInstruction : IInstruction
 		{
-			public string value;
+			public string addr;
 
 			public void Execute(ComputerMachine machine)
 			{
-				long rhs = machine.GetValue(value);
-				if (rhs != 0)
+				if (machine.recvQueue.Count != 0)
 				{
-					machine.OnReceivedRecoverInterrupt();
+					machine.SetValue(addr, machine.recvQueue[0]);
+					machine.recvQueue.RemoveAt(0);
+					machine.blocked = false;
+
+					machine.PC++;
 				}
-				machine.PC++;
+				else
+				{
+					machine.blocked = true;
+				}
 			}
 
 			public IInstruction Create(string[] data)
 			{
 				return new RcvInstruction()
 				{
-					value = data[1]
+					addr = data[1]
 				};
 			}
 		}
@@ -266,19 +271,21 @@ jgz a -2";
 
 		static long Solve(string raw)
 		{
-			var computer = Transform(raw);
-			bool done = false;
-			computer.ReceivedInterrupt += (sound) =>
-			{
-				done = true;
-			};
+			var computer0 = Transform(raw);
+			var computer1 = Transform(raw);
 
-			while (!done)
+			computer0.recvQueue = computer1.sendQueue;
+			computer1.recvQueue = computer0.sendQueue;
+
+			computer1.registers["p"] = 1;
+
+			while (!computer0.blocked || !computer1.blocked)
 			{
-				computer.Step();
+				computer0.Step();
+				computer1.Step();
 			}
 
-			return computer.playingSound;
+			return computer1.sendCount;
 		}
 
 		static long Solve2(string raw)
