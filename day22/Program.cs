@@ -11,7 +11,9 @@ namespace day22
 		static int s_year = 2017;
 		static int s_day = 22;
 		static string s_example =
-@"";
+@"..#
+#..
+...";
 
 		static void Main(string[] args)
 		{
@@ -22,6 +24,46 @@ namespace day22
 			Console.WriteLine("Real 2: " + Solve2(ProblemInput.FetchBlocking(s_year, s_day)));
 
 			Console.ReadKey();
+		}
+
+		public struct Vec2
+		{
+			public int x;
+			public int y;
+		}
+
+		public class MoverThing
+		{
+			public Vec2 pos;
+			public int dir;
+		}
+
+		public static List<Vec2> lookup = new List<Vec2>()
+		{
+			new Vec2() { x = 0, y = 1 },
+			new Vec2() { x = 1, y = 0 },
+			new Vec2() { x = 0, y = -1 },
+			new Vec2() { x = -1, y = 0 }
+		};
+
+		public class Map
+		{
+			public Dictionary<int, bool> map = new Dictionary<int, bool>();
+
+			public Map(string raw)
+			{
+
+			}
+
+			public bool Get(int x, int y)
+			{
+
+			}
+
+			public void Flip(int x, int y)
+			{
+
+			}
 		}
 
 		static string Transform(string raw)
