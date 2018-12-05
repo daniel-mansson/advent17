@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace year2018.Problem
 {
-	class Templ
+	class Day6
 	{
 		static string s_example =
 @"";
