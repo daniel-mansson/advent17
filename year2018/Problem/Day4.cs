@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace year2018.Problem
 {
-	class Day4
+	public class Day4 : BaseDay
 	{
-		static string s_example =
+		public override string Example1 =>
 @"[1518-11-01 00:00] Guard #10 begins shift
 [1518-11-01 00:05] falls asleep
 [1518-11-01 00:25] wakes up
@@ -26,17 +26,6 @@ namespace year2018.Problem
 [1518-11-05 00:03] Guard #99 begins shift
 [1518-11-05 00:45] falls asleep
 [1518-11-05 00:55] wakes up";
-
-		static void Run(int year, int day)
-		{
-			Console.WriteLine("Example: " + Solve(s_example));
-			Console.WriteLine("Real: " + Solve(ProblemInput.FetchBlocking(year, day)));
-
-			Console.WriteLine("Example 2: " + Solve2(s_example));
-			Console.WriteLine("Real 2: " + Solve2(ProblemInput.FetchBlocking(year, day)));
-
-			Console.ReadKey();
-		}
 
 		enum Type
 		{
@@ -106,7 +95,7 @@ namespace year2018.Problem
 			return list;
 		}
 
-		static int Solve(string raw)
+		public override object Solve1(string raw)
 		{
 			var input = Transform(raw);
 
@@ -169,7 +158,7 @@ namespace year2018.Problem
 			return maxId * maxMinute;
 		}
 
-		static int Solve2(string raw)
+		public override object Solve2(string raw)
 		{
 			var input = Transform(raw);
 

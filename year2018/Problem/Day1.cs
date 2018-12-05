@@ -6,25 +6,14 @@ using System.Threading.Tasks;
 
 namespace year2018.Problem
 {
-	class Day1
+	public class Day1 : BaseDay
 	{
-		static string s_example =
+		public override string Example1 =>
 @"+3
 +3
 +4
 -2
 -4";
-
-		static void Run(int year, int day)
-		{
-			Console.WriteLine("Example: " + Solve(s_example));
-			Console.WriteLine("Real: " + Solve(ProblemInput.FetchBlocking(year, day)));
-
-			Console.WriteLine("Example 2: " + Solve2(s_example));
-			Console.WriteLine("Real 2: " + Solve2(ProblemInput.FetchBlocking(year, day)));
-
-			Console.ReadKey();
-		}
 
 		static List<int> Transform(string raw)
 		{
@@ -36,13 +25,13 @@ namespace year2018.Problem
 				.ToList();
 		}
 
-		static int Solve(string raw)
+		public override object Solve1(string raw)
 		{
 			var input = Transform(raw);
 			return input.Sum();
 		}
 
-		static int Solve2(string raw)
+		public override object Solve2(string raw)
 		{
 			var input = Transform(raw);
 
@@ -65,7 +54,6 @@ namespace year2018.Problem
 					}
 				}
 			}
-
 
 			return -1;
 		}

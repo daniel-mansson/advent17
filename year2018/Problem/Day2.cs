@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace year2018.Problem
 {
-	class Day2
+	public class Day2 : BaseDay
 	{
-		static string s_example =
+		public override string Example1 =>
 @"abcdef
 bababc
 abbcde
@@ -17,7 +17,7 @@ aabcdd
 abcdee
 ababab";
 
-		static string s_example2 =
+		public override string Example2 =>
 @"abcde
 fghij
 klmno
@@ -25,17 +25,6 @@ pqrst
 fguij
 axcye
 wvxyz";
-
-		static void Run(int year, int day)
-		{
-			Console.WriteLine("Example: " + Solve(s_example));
-			Console.WriteLine("Real: " + Solve(ProblemInput.FetchBlocking(year, day)));
-
-			Console.WriteLine("Example 2: " + Solve2(s_example2));
-			Console.WriteLine("Real 2: " + Solve2(ProblemInput.FetchBlocking(year, day)));
-
-			Console.ReadKey();
-		}
 		
 		static List<string> Transform(string raw)
 		{
@@ -45,7 +34,7 @@ wvxyz";
 				.ToList();
 		}
 
-		static int Solve(string raw)
+		public override object Solve1(string raw)
 		{
 			var input = Transform(raw);
 
@@ -66,7 +55,7 @@ wvxyz";
 			return two * three;
 		}
 
-		static string Solve2(string raw)
+		public override object Solve2(string raw)
 		{
 			var input = Transform(raw);
 

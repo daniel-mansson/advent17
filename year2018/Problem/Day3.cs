@@ -6,23 +6,12 @@ using System.Threading.Tasks;
 
 namespace year2018.Problem
 {
-	class Day3
+	public class Day3 : BaseDay
 	{
-		static string s_example =
+		public override string Example1 =>
 @"#1 @ 1,3: 4x4
 #2 @ 3,1: 4x4
 #3 @ 5,5: 2x2";
-
-		static void Run(int year, int day)
-		{
-			Console.WriteLine("Example: " + Solve(s_example));
-			Console.WriteLine("Real: " + Solve(ProblemInput.FetchBlocking(year, day)));
-
-			Console.WriteLine("Example 2: " + Solve2(s_example));
-			Console.WriteLine("Real 2: " + Solve2(ProblemInput.FetchBlocking(year, day)));
-
-			Console.ReadKey();
-		}
 
 		class Entry
 		{
@@ -59,7 +48,7 @@ namespace year2018.Problem
 				.ToList();
 		}
 
-		static int Solve(string raw)
+		public override object Solve1(string raw)
 		{
 			var input = Transform(raw);
 
@@ -84,7 +73,7 @@ namespace year2018.Problem
 			return dict.Count(kvp => kvp.Value > 1);
 		}
 
-		static int Solve2(string raw)
+		public override object Solve2(string raw)
 		{
 			var input = Transform(raw);
 

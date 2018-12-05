@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using year2018.Problem;
 
 namespace year2018
 {
@@ -22,7 +23,10 @@ namespace year2018
 			}
 
 			var type = days.FirstOrDefault(d => d.Name == "Day" + dayToRun);
-			Console.WriteLine("Running day " + dayToRun);
+			Console.Write("Running day ");
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.WriteLine(dayToRun);
+			Console.ResetColor();
 
 			if (type == null)
 			{
@@ -30,7 +34,8 @@ namespace year2018
 			}
 			else
 			{
-				type.GetMethod("Run", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public).Invoke(null, new object[] { 2018, dayToRun });
+				var day = (BaseDay)Activator.CreateInstance(type);
+				day.Run(2018, dayToRun);
 			}
 		}
 	}
