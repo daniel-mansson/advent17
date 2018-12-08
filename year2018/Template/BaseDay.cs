@@ -87,7 +87,7 @@ namespace year2018.Problem
 					if (s.Length > 1)
 					{
 						Console.ForegroundColor = ConsoleColor.Yellow;
-						Console.Write("line" + s[1]);
+						Console.WriteLine("line" + s[1]);
 					}
 				}
 
