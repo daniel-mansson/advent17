@@ -44,7 +44,7 @@ namespace year2018.Problem
 				Console.WriteLine();
 
 				{
-					var input = Example1;
+					var input = Example2;
 					var sw = new Stopwatch();
 					sw.Start();
 					var result = Solve2(input);
